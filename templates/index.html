@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/add" method="POST" class="task-form">
+    <input type="text" name="title" placeholder="Judul Tugas" required>
+    <input type="text" name="subject" placeholder="Mata Pelajaran" required>
+    <input type="date" name="deadline" required>
+    <button type="submit">Tambah</button>
+</form>
+
+<table>
+    <tr>
+        <th>Judul</th>
+        <th>Mapel</th>
+        <th>Deadline</th>
+        <th>Status</th>
+        <th>Aksi</th>
+    </tr>
+
+    {% for task in tasks %}
+    <tr class="{{ 'done' if task[4]=='Selesai' }}">
+        <td>{{ task[1] }}</td>
+        <td>{{ task[2] }}</td>
+        <td>{{ task[3] }}</td>
+        <td>{{ task[4] }}</td>
+        <td>
+            <a href="/done/{{ task[0] }}">✔</a>
+            <a href="/delete/{{ task[0] }}">🗑</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
